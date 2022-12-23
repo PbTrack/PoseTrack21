@@ -5,3 +5,4 @@ scipy
 Shapely
 sparse
 xmltodict
+lap # for eval/mot
