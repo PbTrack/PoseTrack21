@@ -110,7 +110,10 @@ class PoseTrack(_BaseDataset):
         return self.tracker_to_disp[tracker]
 
     def _get_seq_info(self):
-        sequence_files = os.listdir(self.gt_fol)
+        if len(self.config['SEQS']) != 0:
+            sequence_files = [f'{seq_path}.json' for seq_path in self.config['SEQS']]
+        else:
+            sequence_files = os.listdir(self.gt_fol)
         seq_lengths = dict()
 
         # reading sequence lengths

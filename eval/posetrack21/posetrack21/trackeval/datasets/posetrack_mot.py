@@ -114,7 +114,10 @@ class PoseTrackMOT(_BaseDataset):
         return self.tracker_to_disp[tracker]
 
     def _get_seq_info(self):
-        seq_list = os.listdir(self.gt_fol)
+        if len(self.config['SEQS']) != 0:
+            seq_list = self.config['SEQS']
+        else:
+            seq_list = os.listdir(self.gt_fol)
         seq_ignore_regions = dict()
         seq_lengths = dict()
 

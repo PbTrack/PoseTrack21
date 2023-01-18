@@ -9,10 +9,13 @@ from .pt_sequence import PTSequence
 class PTWrapper():
     """A Wrapper for the MOT_Sequence class to return multiple sequences."""
 
-    def __init__(self, mot_dir, dataset_path, vis_threshold=0.0):
+    def __init__(self, mot_dir, dataset_path, seqs_list, vis_threshold=0.0):
         'seq_name, mot_dir, dataset_path, vis_threshold=0.0'
 
-        sequences = os.listdir(mot_dir)
+        if len(seqs_list) != 0:
+            sequences = seqs_list
+        else:
+            sequences = os.listdir(mot_dir)
 
         self._data = []
         for s in sequences:
