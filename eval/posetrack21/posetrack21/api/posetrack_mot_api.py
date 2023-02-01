@@ -20,6 +20,7 @@ class PoseTrackMOTEvaluator(BaseEvaluator):
         dataset_config = {k: v for k, v in config.items() if k in default_dataset_config.keys()} 
         metrics_config = {k: v for k, v in config.items() if k in default_metrics_config.keys()} 
         self.evaluator = trackeval.EvaluatorMOT(eval_config)
+        dataset_config['SEQS'] = kwargs['SEQS']
         self.dataset_list = [trackeval.datasets.PoseTrackMOT(dataset_config)]
         self.metrics_list = list() 
 

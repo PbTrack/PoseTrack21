@@ -20,6 +20,7 @@ class PoseTrackPoseEvaluator(BaseEvaluator):
         dataset_config = {k: v for k, v in config.items() if k in default_dataset_config.keys()} 
         metrics_config = {k: v for k, v in config.items() if k in default_metrics_config.keys()} 
         self.evaluator = trackeval.Evaluator(eval_config)
+        dataset_config['SEQS'] = kwargs['SEQS']
         self.dataset_list = [trackeval.datasets.PoseTrack(dataset_config)]
         self.metrics_list = list() 
 
