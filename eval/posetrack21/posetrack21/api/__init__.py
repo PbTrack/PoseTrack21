@@ -11,7 +11,7 @@ def get_api(trackers_folder, gt_folder, use_parallel, num_parallel_cores, eval_t
     eval_type: ['pose_estim', 'pose_tracking', 'reid_tracking', 'posetrack_mot']
     """
 
-    if eval_type == 'tracking':
+    if eval_type == 'pose_tracking':
         return PoseTrackEvaluator(trackers_folder, gt_folder, use_parallel, num_parallel_cores, **kwargs)
     elif eval_type == 'reid_tracking':
         return PoseTrackReIDEvaluator(trackers_folder, gt_folder, **kwargs)

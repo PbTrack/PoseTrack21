@@ -23,11 +23,12 @@ class BaseEvaluator:
 
     def eval(self, mean_only=True):
         output_res, output_msg = self.evaluator.evaluate(self.dataset_list, self.metrics_list)
-
         pt_results = output_res[f'{self.dataset}']
         tracker_name = list(pt_results.keys())[0]
-        results = pt_results[tracker_name]['COMBINED_SEQ']['person'][f'{self.metric}']
-
+        if "person" in pt_results[tracker_name]['COMBINED_SEQ']:
+            results = pt_results[tracker_name]['COMBINED_SEQ']['person'][f'{self.metric}']
+        elif "pedestrian" in pt_results[tracker_name]['COMBINED_SEQ']:
+            results = pt_results[tracker_name]['COMBINED_SEQ']['pedestrian'][f'{self.metric}']
         return results 
 
     @staticmethod
