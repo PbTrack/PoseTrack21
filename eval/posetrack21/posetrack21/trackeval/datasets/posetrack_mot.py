@@ -8,7 +8,11 @@ from .. import utils
 from .. import _timing
 from ..utils import TrackEvalException
 from shapely.geometry import box, Polygon, MultiPolygon
-import json 
+import json
+import logging
+log = logging.getLogger(__name__)
+import warnings
+warnings.filterwarnings("ignore", category=RuntimeWarning)  # remove shapely/set_operations.py:133: RuntimeWarning: invalid value encountered in intersection
 
 class PoseTrackMOT(_BaseDataset):
     """Dataset class for MOT Challenge 2D bounding box tracking"""
@@ -405,7 +409,12 @@ class PoseTrackMOT(_BaseDataset):
                                             poly_intersection = multi_poly.intersection(unmatched_boxes[j]).area
                                             poly_union = multi_poly.union(unmatched_boxes[j]).area
                                         else:
-                                            for poly in multi_poly:
+                                            # '.geoms' was added here to avoid "{TypeError}'MultiPolygon' object is
+                                            # not iterable" error. See:
+                                            # https://stackoverflow.com/questions/38930192/how-to-extract-polygons-from-multipolygons-in-shapely
+                                            # The error occured on videos such as "012834_mpii_test", with multiple ignore regions.
+                                            # MOTA is still negative so not sure if this fix is correct.
+                                            for poly in multi_poly.geoms:
                                                 poly_intersection += poly.intersection(unmatched_boxes[j]).area
                                                 poly_union += poly.union(unmatched_boxes[j]).area
                                                 
@@ -421,7 +430,7 @@ class PoseTrackMOT(_BaseDataset):
                                 dets_to_remove.append(det_idx)
                             
                             to_remove_tracker = np.array(dets_to_remove, dtype=np.int)
-                  
+                            log.debug("Removing {} detections in frame {} of seq {} because of overlap with ignore region.".format(len(dets_to_remove), t, seq))
             # Apply preprocessing to remove all unwanted tracker dets.
             data['tracker_ids'][t] = np.delete(tracker_ids, to_remove_tracker, axis=0)
             data['tracker_dets'][t] = np.delete(tracker_dets, to_remove_tracker, axis=0)
