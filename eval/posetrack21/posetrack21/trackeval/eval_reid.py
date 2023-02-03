@@ -151,9 +151,15 @@ class EvaluatorReid:
                     if config['BREAK_ON_ERROR']:
                         raise err
                     elif config['RETURN_ON_ERROR']:
-                        return output_res, output_msg
+                        return self.res_combined(res), self.res_by_video(res)
 
-        return output_res, output_msg
+            return self.res_combined(res), self.res_by_video(res)
+
+        def res_by_video(self, res):
+            raise NotImplementedError
+
+        def res_combined(self, res):
+            raise NotImplementedError
 
 @_timing.time 
 def pre_process_sequences(seq_list, dataset, tracker, class_list):

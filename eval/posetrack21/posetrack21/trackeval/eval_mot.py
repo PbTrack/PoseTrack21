@@ -146,9 +146,33 @@ class Evaluator:
                     if config['BREAK_ON_ERROR']:
                         raise err
                     elif config['RETURN_ON_ERROR']:
-                        return output_res, output_msg
+                        return self.res_combined(res), self.res_by_video(res)
 
-        return output_res, output_msg
+                return self.res_combined(res), self.res_by_video(res)
+
+    def res_by_video(self, res):
+        res_by_vid = {}
+        for vid, value in res.items():
+            if vid != 'COMBINED_SEQ':
+                res_by_metric = {}
+                for metric_name, metric_value in value["pedestrian"]["HOTA"].items():
+                    if "_" not in metric_name :
+                        if metric_value.ndim == 2:
+                            res_by_metric[metric_name] = np.mean(metric_value[:, -1])
+                        elif metric_value.ndim == 1:
+                            res_by_metric[metric_name] = metric_value[-1]
+                res_by_vid[vid] = res_by_metric
+        return res_by_vid
+
+    def res_combined(self, res):
+        res_by_metric = {}
+        for metric_name, metric_value in res["COMBINED_SEQ"]["pedestrian"]["HOTA"].items():
+            if "_" not in metric_name:
+                if metric_value.ndim == 2:
+                    res_by_metric[metric_name] = np.mean(metric_value[:, -1])
+                elif metric_value.ndim == 1:
+                    res_by_metric[metric_name] = metric_value[-1]
+        return res_by_metric
 
 
 @_timing.time

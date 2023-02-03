@@ -22,22 +22,5 @@ class BaseEvaluator:
         config['ASSURE_SINGLE_TRACKER'] = True 
 
     def eval(self, mean_only=True):
-        output_res, output_msg = self.evaluator.evaluate(self.dataset_list, self.metrics_list)
-        pt_results = output_res[f'{self.dataset}']
-        tracker_name = list(pt_results.keys())[0]
-        if "person" in pt_results[tracker_name]['COMBINED_SEQ']:
-            results = pt_results[tracker_name]['COMBINED_SEQ']['person'][f'{self.metric}']
-        elif "pedestrian" in pt_results[tracker_name]['COMBINED_SEQ']:
-            results = pt_results[tracker_name]['COMBINED_SEQ']['pedestrian'][f'{self.metric}']
-        return results 
-
-    @staticmethod
-    def get_avg_results(results):
-
-        avg_results = dict() 
-        for k,  v in results.items():
-            avg_results[k] = v.mean(axis=0)
-
-        return avg_results
-
-
+        res_combined, res_by_video = self.evaluator.evaluate(self.dataset_list, self.metrics_list)
+        return res_combined, res_by_video

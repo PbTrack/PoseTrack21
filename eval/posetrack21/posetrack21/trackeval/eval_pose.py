@@ -6,7 +6,6 @@ import os
 from . import utils
 from .utils import TrackEvalException
 from . import _timing
-from .metrics import Count
 
 
 class PoseEvaluator:
@@ -147,10 +146,25 @@ class PoseEvaluator:
                     if config['BREAK_ON_ERROR']:
                         raise err
                     elif config['RETURN_ON_ERROR']:
-                        return output_res, output_msg
+                        return self.res_combined(res), self.res_by_video(res)
 
-        return output_res, output_msg
+        return self.res_combined(res), self.res_by_video(res)
 
+    def res_by_video(self, res):
+        res_by_vid = {}
+        for vid, value in res.items():
+            if vid != 'COMBINED_SEQ':
+                res_by_metric = {}
+                for metric in ["map", "precision", "recall"]:
+                    res_by_metric[metric] = value["person"]["PosemAP"][metric]["Total"]
+                res_by_vid[vid] = res_by_metric
+        return res_by_vid
+
+    def res_combined(self, res):
+        res_by_metric = {}
+        for metric in ["map", "precision", "recall"]:
+            res_by_metric[metric] = res["COMBINED_SEQ"]["person"]["PosemAP"][metric]["Total"]
+        return res_by_metric
 
 @_timing.time
 def eval_sequence(seq, dataset, tracker, class_list, metrics_list, metric_names):
