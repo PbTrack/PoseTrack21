@@ -161,7 +161,7 @@ class Evaluator:
                             res_by_metric[metric_name] = np.mean(metric_value[:, -1])
                         elif metric_value.ndim == 1:
                             res_by_metric[metric_name] = metric_value[-1]
-                res_by_vid[vid] = res_by_metric
+                res_by_vid[vid.split(".json")[0]] = res_by_metric
         return res_by_vid
 
     def res_combined(self, res):

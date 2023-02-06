@@ -157,7 +157,7 @@ class PoseEvaluator:
                 res_by_metric = {}
                 for metric in ["map", "precision", "recall"]:
                     res_by_metric[metric] = value["person"]["PosemAP"][metric]["Total"]
-                res_by_vid[vid] = res_by_metric
+                res_by_vid[vid.split(".json")[0]] = res_by_metric
         return res_by_vid
 
     def res_combined(self, res):
