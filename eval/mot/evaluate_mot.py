@@ -103,7 +103,7 @@ def get_mot_accum(results, seq, ignore_iou_thres=0.1, use_ignore_regions=False):
                             poly_intersection = multi_poly.intersection(det_boxes[j]).area
                             poly_union = multi_poly.union(det_boxes[j]).area
                         else:
-                            for poly in multi_poly:
+                            for poly in multi_poly.geoms:
                                 poly_intersection += poly.intersection(det_boxes[j]).area
                                 poly_union += poly.union(det_boxes[j]).area
 

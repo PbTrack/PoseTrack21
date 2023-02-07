@@ -153,25 +153,25 @@ class Evaluator:
     def res_by_video(self, res):
         res_by_vid = {}
         for vid, value in res.items():
-            if vid != 'COMBINED_SEQ':
-                res_by_metric = {}
-                for metric_name, metric_value in value["pedestrian"]["HOTA"].items():
-                    if "_" not in metric_name :
-                        if metric_value.ndim == 2:
-                            res_by_metric[metric_name] = np.mean(metric_value[:, -1])
-                        elif metric_value.ndim == 1:
-                            res_by_metric[metric_name] = metric_value[-1]
-                res_by_vid[vid.split(".json")[0]] = res_by_metric
+            res_by_metric = {}
+            for metric_name, metric_value in value["pedestrian"]["HOTA"].items():
+                res_by_metric[metric_name] = self.format_metric(metric_value)
+            res_by_vid[vid.split(".json")[0]] = res_by_metric
         return res_by_vid
+
+    def format_metric(self, metric_value):
+        if isinstance(metric_value, float):
+            formatted_metric_value = metric_value
+        elif metric_value.ndim == 1:
+            formatted_metric_value = metric_value.mean()
+        else:
+            raise ValueError("Metric value has unexpected shape")
+        return formatted_metric_value
 
     def res_combined(self, res):
         res_by_metric = {}
         for metric_name, metric_value in res["COMBINED_SEQ"]["pedestrian"]["HOTA"].items():
-            if "_" not in metric_name:
-                if metric_value.ndim == 2:
-                    res_by_metric[metric_name] = np.mean(metric_value[:, -1])
-                elif metric_value.ndim == 1:
-                    res_by_metric[metric_name] = metric_value[-1]
+            res_by_metric[metric_name] = self.format_metric(metric_value)
         return res_by_metric
 
 
