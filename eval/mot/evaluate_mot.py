@@ -148,7 +148,7 @@ def evaluate_mot_accums(accums, names, generate_overall=False):
         namemap=mm.io.motchallenge_metric_names, )
     print(str_summary)
 
-    return str_summary
+    return str_summary, summary
 
 
 def main():
@@ -237,12 +237,12 @@ def eval_ablation_studies():
                                                 ignore_iou_thres=ignore_iou_thres,
                                                 use_ignore_regions=use_ignore_regions))
             if mot_accums:
-                summary = evaluate_mot_accums(mot_accums,
+                str_summary, summary = evaluate_mot_accums(mot_accums,
                                               [str(s) for s in dataset if not s.no_gt],
                                               generate_overall=True)
 
                 with open(os.path.join(exp_path, 'results.txt'), 'w') as f:
-                    f.write(summary)
+                    f.write(str_summary)
 
 if __name__ == '__main__':
     main()
