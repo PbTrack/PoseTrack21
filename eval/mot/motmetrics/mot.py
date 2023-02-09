@@ -132,7 +132,7 @@ class MOTAccumulator(object):
         self._events['HId'].append(hid)
         self._events['D'].append(distance)
 
-    def update(self, oids, hids, dists, frameid=None, vf='', ignore_candidates=None):
+    def update(self, oids, hids, dists, frameid=None, vf='', ignore_candidates=[]):
         """Updates the accumulator with frame specific objects/detections.
 
         This method generates events based on the following algorithm [1]:
