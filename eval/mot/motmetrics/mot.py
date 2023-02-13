@@ -17,7 +17,7 @@ import itertools
 import numpy as np
 import pandas as pd
 
-from motmetrics.lap import linear_sum_assignment
+from plugins.eval.PoseTrack21.eval.mot.motmetrics.lap import linear_sum_assignment
 
 _INDEX_FIELDS = ['FrameId', 'Event']
 _EVENT_FIELDS = ['Type', 'OId', 'HId', 'D']
@@ -29,7 +29,7 @@ class MOTAccumulator(object):
     This class computes per-frame tracking events from a given set of object / hypothesis
     ids and pairwise distances. Indended usage
 
-        import motmetrics as mm
+        import plugins.eval.PoseTrack21.eval.mot.motmetrics as mm
         acc = mm.MOTAccumulator()
         acc.update(['a', 'b'], [0, 1, 2], dists, frameid=0)
         ...

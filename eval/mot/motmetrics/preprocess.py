@@ -17,8 +17,8 @@ import time
 
 import numpy as np
 
-import motmetrics.distances as mmd
-from motmetrics.lap import linear_sum_assignment
+import plugins.eval.PoseTrack21.eval.mot.motmetrics.distances as mmd
+from plugins.eval.PoseTrack21.eval.mot.motmetrics.lap import linear_sum_assignment
 
 
 def preprocessResult(res, gt, inifile):

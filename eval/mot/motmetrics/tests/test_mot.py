@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-import motmetrics as mm
+import plugins.eval.PoseTrack21.eval.mot.motmetrics as mm
 
 
 def test_events():

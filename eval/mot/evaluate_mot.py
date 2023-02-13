@@ -1,11 +1,14 @@
-from datasets.pt_warper import PTWrapper
 import numpy as np
-import motmetrics as mm
-mm.lap.default_solver = 'lap'
-from shapely.geometry import box, Polygon, MultiPolygon
 import argparse
 import os
+
 from tqdm import tqdm
+from datasets.pt_warper import PTWrapper
+from shapely.geometry import box, Polygon, MultiPolygon
+from plugins.eval.PoseTrack21.eval.mot import motmetrics as mm
+
+mm.lap.default_solver = 'lap'
+
 
 def get_mot_accum(results, seq, ignore_iou_thres=0.1, use_ignore_regions=False):
     mot_accum = mm.MOTAccumulator(auto_id=True)

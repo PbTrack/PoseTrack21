@@ -21,9 +21,9 @@ import time
 import numpy as np
 import pandas as pd
 
-from motmetrics import math_util
-from motmetrics.lap import linear_sum_assignment
-from motmetrics.mot import MOTAccumulator
+from plugins.eval.PoseTrack21.eval.mot.motmetrics import math_util
+from plugins.eval.PoseTrack21.eval.mot.motmetrics.lap import linear_sum_assignment
+from plugins.eval.PoseTrack21.eval.mot.motmetrics.mot import MOTAccumulator
 
 try:
     _getargspec = inspect.getfullargspec

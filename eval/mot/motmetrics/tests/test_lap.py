@@ -16,7 +16,7 @@ import warnings
 import numpy as np
 import pytest
 
-from motmetrics import lap
+from plugins.eval.PoseTrack21.eval.mot.motmetrics import lap
 
 DESIRED_SOLVERS = ['lap', 'lapsolver', 'munkres', 'ortools', 'scipy']
 SOLVERS = lap.available_solvers

@@ -15,7 +15,7 @@ import os
 
 import pandas as pd
 
-import motmetrics as mm
+import plugins.eval.PoseTrack21.eval.mot.motmetrics as mm
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '../data')
 
