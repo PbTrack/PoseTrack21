@@ -16,7 +16,7 @@ from __future__ import print_function
 
 import numpy as np
 
-import plugins.eval.PoseTrack21.eval.mot.motmetrics as mm
+from ... import motmetrics as mm
 
 
 def test_issue19():

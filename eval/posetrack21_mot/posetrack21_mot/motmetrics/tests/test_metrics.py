@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 from pytest import approx
 
-import plugins.eval.PoseTrack21.eval.mot.motmetrics as mm
+from ... import motmetrics as mm
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '../data')
 

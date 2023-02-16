@@ -16,7 +16,7 @@ import itertools
 import numpy as np
 import pandas as pd
 
-import plugins.eval.PoseTrack21.eval.mot.motmetrics as mm
+from ... import motmetrics as mm
 
 
 def test_annotations_xor_predictions_present():

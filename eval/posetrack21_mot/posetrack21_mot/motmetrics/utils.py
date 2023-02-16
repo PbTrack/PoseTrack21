@@ -13,9 +13,9 @@ from __future__ import print_function
 
 import numpy as np
 
-from plugins.eval.PoseTrack21.eval.mot.motmetrics.distances import iou_matrix, norm2squared_matrix
-from plugins.eval.PoseTrack21.eval.mot.motmetrics.mot import MOTAccumulator
-from plugins.eval.PoseTrack21.eval.mot.motmetrics.preprocess import preprocessResult
+from .distances import iou_matrix, norm2squared_matrix
+from .mot import MOTAccumulator
+from .preprocess import preprocessResult
 
 
 def compare_to_groundtruth(gt, dt, dist='iou', distfields=None, distth=0.5):
