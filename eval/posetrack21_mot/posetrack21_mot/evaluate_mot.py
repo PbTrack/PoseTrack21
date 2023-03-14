@@ -7,6 +7,10 @@ import argparse
 import os
 from tqdm import tqdm
 
+import logging
+
+log = logging.getLogger(__name__)
+
 def get_mot_accum(results, seq, ignore_iou_thres=0.1, use_ignore_regions=False):
     mot_accum = mm.MOTAccumulator(auto_id=True)
 
@@ -146,7 +150,7 @@ def evaluate_mot_accums(accums, names, generate_overall=False):
         summary,
         formatters=mh.formatters,
         namemap=mm.io.motchallenge_metric_names, )
-    print(str_summary)
+    log.info("\n" + str_summary)
 
     return str_summary, summary
 
