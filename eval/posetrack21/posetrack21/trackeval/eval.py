@@ -158,7 +158,7 @@ class Evaluator:
         for vid, value in res.items():
             if vid != 'COMBINED_SEQ':
                 res_by_metric = {}
-                for metric_name, metric_value in value["person"]["HOTAeypoints"].items():
+                for metric_name, metric_value in value["person"]["HOTAkeypoints"].items():
                     if "_" not in metric_name:
                         if metric_value.ndim == 2:
                             res_by_metric[metric_name] = np.mean(metric_value[:, -1])
@@ -169,7 +169,7 @@ class Evaluator:
 
     def res_combined(self, res):
         res_by_metric = {}
-        for metric_name, metric_value in res["COMBINED_SEQ"]["person"]["HOTAeypoints"].items():
+        for metric_name, metric_value in res["COMBINED_SEQ"]["person"]["HOTAkeypoints"].items():
             if "_" not in metric_name:
                 if metric_value.ndim == 2:
                     res_by_metric[metric_name] = np.mean(metric_value[:, -1])
